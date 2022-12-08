@@ -3,6 +3,23 @@
  * timestamps must always increase in the array
  * a start of a title cannot precede the end of a previous title
  */
+const sampleTitles = [
+    {
+        start: 1000, // timestamp in ms
+        end: 3000,
+        text: 'Once upon a time',
+    },
+    {
+        start: 5000,
+        end: 6000,
+        text: 'not so long ago...',
+    },
+    {
+        start: 10000,
+        end: 14000,
+        text: 'duh duh duh duh',
+    },
+];
 
 const INTERVAL_LENGTH = 100; // ms
 
@@ -14,7 +31,7 @@ class TitlesService {
         this.currentText = '';
     }
 
-    start() {
+    start(titleNode) {
         const intervalID = setInterval(() => {
             if (this.currentIndex < this.titles.length) {
                 if (this.timeElapsed === this.titles[this.currentIndex].start) {
@@ -27,8 +44,9 @@ class TitlesService {
                     this.currentText = '';
                     this.currentIndex += 1; // advance to the next title
                 }
+                titleNode.textContent = this.currentText;
                 console.log(
-                    `Time: ${this.timeElapsed} currentIndex: ${this.currentIndex} currentText: ${this.currentText}, length: ${this.titles.length}`
+                    `Time: ${this.timeElapsed} currentIndex: ${this.currentIndex} titles array length: ${this.titles.length} currentText: ${this.currentText}`
                 );
                 this.timeElapsed += INTERVAL_LENGTH;
             } else {
@@ -41,20 +59,21 @@ class TitlesService {
     add(title) {
         this.titles.push(title);
         this.titles.sort((a, b) => a.start - b.start);
-        // console.log('LENGTH', this.titles.length);
     }
 }
 
-const sampleTitles = require('./sampleTitles');
-const svc = new TitlesService(sampleTitles);
+const titleNode = document.getElementById('title-el');
+const startBtn = document.getElementById('start');
 
-setTimeout(() => {
-    console.log('NEW ADD!');
-    svc.add({
-        start: 7000,
-        end: 8000,
-        text: 'Hey I am an inserted title',
-    });
-}, 3000);
-
-svc.start();
+startBtn.addEventListener('click', () => {
+    const svc = new TitlesService(sampleTitles);
+    svc.start(titleNode);
+    setTimeout(() => {
+        console.log('NEW ADD!');
+        svc.add({
+            start: 7000,
+            end: 8000,
+            text: 'Hey I am an inserted title',
+        });
+    }, 3000);
+});

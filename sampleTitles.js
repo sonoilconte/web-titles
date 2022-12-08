@@ -1,4 +1,4 @@
-module.exports = [
+export default [
     {
         start: 1000, // timestamp in ms
         end: 3000,
