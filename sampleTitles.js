@@ -1,26 +1,17 @@
 module.exports = [
     {
-        ts: 2000, // timestamp in ms
-        text: 'A title',
+        start: 1000, // timestamp in ms
+        end: 3000,
+        text: 'Once upon a time',
     },
     {
-        ts: 4000,
-        text: 'A title',
+        start: 5000,
+        end: 6000,
+        text: 'not so long ago...',
     },
     {
-        ts: 6000,
-        text: 'A title',
-    },
-    {
-        ts: 8000,
-        text: 'A title',
-    },
-    {
-        ts: 1000,
-        text: 'A title',
-    },
-    {
-        ts: 12000,
-        text: 'A title',
+        start: 10000,
+        end: 11000,
+        text: 'duh duh duh duh',
     },
 ];
