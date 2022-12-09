@@ -15,8 +15,8 @@ const sampleTitles = [
         text: 'not so long ago...',
     },
     {
-        start: 10000,
-        end: 14000,
+        start: 7000,
+        end: 9000,
         text: 'duh duh duh duh',
     },
 ];
@@ -24,16 +24,18 @@ const sampleTitles = [
 const INTERVAL_LENGTH = 100; // ms
 
 class TitlesService {
-    constructor(titles) {
+    constructor(titleNode, titles) {
+        this.titleNode = titleNode;
         this.titles = titles || [];
         this.timeElapsed = 0;
         this.currentIndex = 0;
         this.currentText = '';
     }
 
-    start(titleNode) {
+    start() {
         const intervalID = setInterval(() => {
             if (this.currentIndex < this.titles.length) {
+                // console.log(this);
                 if (this.timeElapsed === this.titles[this.currentIndex].start) {
                     // Event — start showing of title
                     this.currentText = this.titles[this.currentIndex].text;
@@ -44,7 +46,7 @@ class TitlesService {
                     this.currentText = '';
                     this.currentIndex += 1; // advance to the next title
                 }
-                titleNode.textContent = this.currentText;
+                this.titleNode.textContent = this.currentText;
                 console.log(
                     `Time: ${this.timeElapsed} currentIndex: ${this.currentIndex} titles array length: ${this.titles.length} currentText: ${this.currentText}`
                 );
@@ -57,8 +59,29 @@ class TitlesService {
     }
 
     add(title) {
+        if (this.isOverLapping(title)) {
+            console.log('Cannot add');
+            return;
+        }
         this.titles.push(title);
         this.titles.sort((a, b) => a.start - b.start);
+    }
+
+    // A new incoming Title should never overlap with the existing titles
+    isOverLapping(title) {
+        for (let i = 0; i < this.titles.length; i += 1) {
+            if (title.start > this.titles[i].start && title.start < this.titles[i].end) {
+                return true;
+            }
+            if (title.end < this.titles[i].end && title.end > this.titles[i].start) {
+                return true;
+            }
+            // sharing a start or end point is always going to be overlapping
+            if (title.start === this.titles[i].start || title.end === this.titles[i].end) {
+                return true;
+            }
+        }
+        return false;
     }
 }
 
@@ -66,14 +89,15 @@ const titleNode = document.getElementById('title-el');
 const startBtn = document.getElementById('start');
 
 startBtn.addEventListener('click', () => {
-    const svc = new TitlesService(sampleTitles);
-    svc.start(titleNode);
+    const svc = new TitlesService(titleNode, sampleTitles);
+    console.log(svc);
+    svc.start();
     setTimeout(() => {
         console.log('NEW ADD!');
         svc.add({
-            start: 7000,
-            end: 8000,
+            start: 6100,
+            end: 6800,
             text: 'Hey I am an inserted title',
         });
-    }, 3000);
+    }, 6000);
 });
