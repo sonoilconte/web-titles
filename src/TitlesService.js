@@ -101,3 +101,5 @@ startBtn.addEventListener('click', () => {
         });
     }, 6000);
 });
+
+export default TitlesService;
