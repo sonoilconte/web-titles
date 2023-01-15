@@ -13,10 +13,11 @@ class TitlesService {
         this.timeElapsed = 0;
         this.currentIndex = 0;
         this.currentText = '';
+        this.intervalID = '';
     }
 
     start() {
-        const intervalID = setInterval(() => {
+        this.intervalID = setInterval(() => {
             if (this.currentIndex < this.titles.length) {
                 // console.log(this);
                 if (this.timeElapsed === this.titles[this.currentIndex].start) {
@@ -35,10 +36,27 @@ class TitlesService {
                 );
                 this.timeElapsed += INTERVAL_LENGTH;
             } else {
-                console.log('All titles have been run');
-                clearInterval(intervalID);
+                console.log('All titles have been run...resetting player');
+                this.reset();
             }
         }, INTERVAL_LENGTH);
+
+        console.log('Started title service with intervalID', this.intervalID);
+    }
+
+    stop() {
+        console.log('Stopping playing of titles...click start to restart player where you left off');
+        clearInterval(this.intervalID);
+    }
+
+    reset() {
+        console.log('Resetting titles service');
+        clearInterval(this.intervalID);
+        console.log('Interval cleared: ', this.intervalID);
+        this.timeElapsed = 0;
+        this.currentIndex = 0;
+        this.titleNode.textContent = '';
+        this.currentText = '';
     }
 
     add(title) {
