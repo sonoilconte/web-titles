@@ -25,7 +25,7 @@ class TitlesService {
                     this.currentText = this.titles[this.currentIndex].text;
                     // console.log(`\n\nTime: ${this.timeElapsed} START ${this.currentText} #${this.currentIndex}`);
                 } else if (this.timeElapsed === this.titles[this.currentIndex].end) {
-                    // Event = end showing of title
+                    // Event - end showing of title
                     // console.log(`\n\nTime: ${this.timeElapsed} END ${this.currentText} #${this.currentIndex}`);
                     this.currentText = '';
                     this.currentIndex += 1; // advance to the next title
