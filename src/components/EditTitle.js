@@ -10,12 +10,12 @@ function EditTitle({ title, handleTitleUpdate, handleTitleDelete }) {
     const [newText, setNewText] = useState(text);
 
     const handleStartChange = (event) => {
-        const startInt = parseInt(event.target.value);
+        const startInt = parseInt(event.target.value) || '';
         setNewStart(startInt);
     };
 
     const handleEndChange = (event) => {
-        const endInt = parseInt(event.target.value);
+        const endInt = parseInt(event.target.value) || '';
         setNewEnd(endInt);
     };
 

@@ -3,39 +3,51 @@ import { useState, useEffect } from 'react';
 import TitlesService from './TitlesService';
 import sampleTitles from './sampleTitles';
 import EditTitleList from './components/EditTitleList';
+import CreateTitle from './components/CreateTitle';
 
 const App = () => {
+    const [titles, setTitles] = useState(sampleTitles);
+
     useEffect(() => {
         const titleNode = document.getElementById('title-el');
         const startBtn = document.getElementById('start');
         const stopBtn = document.getElementById('stop');
         const resetBtn = document.getElementById('reset');
 
-        const svc = new TitlesService(titleNode, sampleTitles);
+        const svc = new TitlesService(titleNode, titles);
 
-        startBtn.addEventListener('click', () => {
-            console.log(svc);
+        const startHandler = () => {
+            console.log('Starting TitleService', svc);
             svc.start();
-            // setTimeout(() => {
-            //     console.log('NEW ADD!');
-            //     svc.add({
-            //         start: 6100,
-            //         end: 6800,
-            //         text: 'Hey I am an inserted title',
-            //     });
-            // }, 6000);
-        });
+        };
 
-        stopBtn.addEventListener('click', () => {
+        const stopHandler = () => {
+            console.log('Stopping TitlesService');
             svc.stop();
-        });
+        };
 
-        resetBtn.addEventListener('click', () => {
+        const resetHandler = () => {
+            console.log('Resetting TitlesService');
             svc.reset();
-        });
-    }, []);
+        };
 
-    const [titles, setTitles] = useState(sampleTitles);
+        startBtn.addEventListener('click', startHandler);
+        stopBtn.addEventListener('click', stopHandler);
+        resetBtn.addEventListener('click', resetHandler);
+
+        return () => {
+            startBtn.removeEventListener('click', startHandler);
+            stopBtn.removeEventListener('click', stopHandler);
+            resetBtn.removeEventListener('click', resetHandler);
+        };
+    }, [titles]);
+
+    const createTitle = (newTitle) => {
+        let updatedTitles = [...titles];
+        updatedTitles.push(newTitle);
+        updatedTitles = updatedTitles.sort((a, b) => a.start - b.start);
+        setTitles(updatedTitles);
+    };
 
     const handleTitleUpdate = (newTitle) => {
         console.log('Updating to title', newTitle);
@@ -62,6 +74,7 @@ const App = () => {
 
             <h2>Editor</h2>
             <EditTitleList titles={titles} handleTitleUpdate={handleTitleUpdate} handleTitleDelete={handleTitleDelete} />
+            <CreateTitle createTitle={createTitle} />
             <h2>Viewer</h2>
             <div id="title-el" style={{ height: '30px' }}></div>
             <button id="start">START</button>
