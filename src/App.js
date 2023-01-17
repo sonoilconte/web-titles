@@ -1,20 +1,20 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import TitlesService from './TitlesService';
 import sampleTitles from './sampleTitles';
 import EditTitleList from './components/EditTitleList';
 import CreateTitle from './components/CreateTitle';
 
 const App = () => {
+    const titleRef = useRef();
+    const startRef = useRef();
+    const stopRef = useRef();
+    const resetRef = useRef();
+
     const [titles, setTitles] = useState(sampleTitles);
 
     useEffect(() => {
-        const titleNode = document.getElementById('title-el');
-        const startBtn = document.getElementById('start');
-        const stopBtn = document.getElementById('stop');
-        const resetBtn = document.getElementById('reset');
-
-        const svc = new TitlesService(titleNode, titles);
+        const svc = new TitlesService(titleRef.current, titles);
 
         const startHandler = () => {
             console.log('Starting TitleService', svc);
@@ -31,14 +31,14 @@ const App = () => {
             svc.reset();
         };
 
-        startBtn.addEventListener('click', startHandler);
-        stopBtn.addEventListener('click', stopHandler);
-        resetBtn.addEventListener('click', resetHandler);
+        startRef.current.addEventListener('click', startHandler);
+        stopRef.current.addEventListener('click', stopHandler);
+        resetRef.current.addEventListener('click', resetHandler);
 
         return () => {
-            startBtn.removeEventListener('click', startHandler);
-            stopBtn.removeEventListener('click', stopHandler);
-            resetBtn.removeEventListener('click', resetHandler);
+            startRef.current.removeEventListener('click', startHandler);
+            stopRef.current.removeEventListener('click', stopHandler);
+            resetRef.current.removeEventListener('click', resetHandler);
         };
     }, [titles]);
 
@@ -76,10 +76,10 @@ const App = () => {
             <EditTitleList titles={titles} handleTitleUpdate={handleTitleUpdate} handleTitleDelete={handleTitleDelete} />
             <CreateTitle createTitle={createTitle} />
             <h2>Viewer</h2>
-            <div id="title-el" style={{ height: '30px' }}></div>
-            <button id="start">START</button>
-            <button id="stop">STOP</button>
-            <button id="reset">RESET</button>
+            <div ref={titleRef} style={{ height: '30px' }}></div>
+            <button ref={startRef}>START</button>
+            <button ref={stopRef}>STOP</button>
+            <button ref={resetRef}>RESET</button>
         </div>
     );
 };
