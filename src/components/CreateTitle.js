@@ -1,6 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import TitlesContext from '../context/titles';
 
-function CreateTitle({ createTitle }) {
+function CreateTitle() {
+    const { createTitle } = useContext(TitlesContext);
+
     const [start, setStart] = useState('');
     const [end, setEnd] = useState('');
     const [text, setText] = useState('');
@@ -39,7 +42,7 @@ function CreateTitle({ createTitle }) {
             <form onSubmit={handleSubmit}>
                 <input placeholder="Start" onChange={handleStartChange} value={start} />
                 <input placeholder="End" onChange={handleEndChange} value={end} />
-                <input placeholder="Add new title" onChange={handleTextChange} value={text} />
+                <input placeholder="Text to display" onChange={handleTextChange} value={text} />
                 <button>Add</button>
             </form>
         </div>

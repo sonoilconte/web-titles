@@ -1,7 +1,7 @@
 import React from 'react';
-import { useState, useEffect, useRef } from 'react';
+import { useEffect, useRef, useContext } from 'react';
+import TitlesContext from './context/titles';
 import TitlesService from './TitlesService';
-import sampleTitles from './sampleTitles';
 import EditTitleList from './components/EditTitleList';
 import CreateTitle from './components/CreateTitle';
 
@@ -11,7 +11,7 @@ const App = () => {
     const stopRef = useRef();
     const resetRef = useRef();
 
-    const [titles, setTitles] = useState(sampleTitles);
+    const { titles } = useContext(TitlesContext);
 
     useEffect(() => {
         const svc = new TitlesService(titleRef.current, titles);
@@ -42,39 +42,13 @@ const App = () => {
         };
     }, [titles]);
 
-    const createTitle = (newTitle) => {
-        let updatedTitles = [...titles];
-        updatedTitles.push(newTitle);
-        updatedTitles = updatedTitles.sort((a, b) => a.start - b.start);
-        setTitles(updatedTitles);
-    };
-
-    const handleTitleUpdate = (newTitle) => {
-        console.log('Updating to title', newTitle);
-        const updatedTitles = titles.map((title) => {
-            if (title.id === newTitle.id) {
-                return newTitle;
-            }
-            return title;
-        });
-        setTitles(updatedTitles);
-    };
-
-    const handleTitleDelete = (titleToDelete) => {
-        console.log('Delete it', titleToDelete);
-        const updatedTitles = titles.filter((title) => {
-            return title.id !== titleToDelete.id;
-        });
-        setTitles(updatedTitles);
-    };
-
     return (
         <div>
             <h1>Web Titles POC</h1>
 
             <h2>Editor</h2>
-            <EditTitleList titles={titles} handleTitleUpdate={handleTitleUpdate} handleTitleDelete={handleTitleDelete} />
-            <CreateTitle createTitle={createTitle} />
+            <EditTitleList />
+            <CreateTitle />
             <h2>Viewer</h2>
             <div ref={titleRef} style={{ height: '30px' }}></div>
             <button ref={startRef}>START</button>

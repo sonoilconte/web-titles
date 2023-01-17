@@ -1,16 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import TitlesContext from '../context/titles';
 import EditTitle from './EditTitle';
 
-function EditTitleList({ titles, handleTitleUpdate, handleTitleDelete }) {
+function EditTitleList() {
+    const { titles } = useContext(TitlesContext);
     return (
         <div>
             {titles.map((title) => (
-                <EditTitle
-                    key={title.id}
-                    title={title}
-                    handleTitleUpdate={handleTitleUpdate}
-                    handleTitleDelete={handleTitleDelete}
-                />
+                <EditTitle key={title.id} title={title} />
             ))}
         </div>
     );

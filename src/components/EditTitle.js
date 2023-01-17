@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useState } from 'react';
+import TitlesContext from '../context/titles';
 
-function EditTitle({ title, handleTitleUpdate, handleTitleDelete }) {
+function EditTitle({ title }) {
+    const { handleTitleDelete, handleTitleUpdate } = useContext(TitlesContext);
+
     const { start, end, text } = title;
 
     const [canEdit, setCanEdit] = useState(false);
