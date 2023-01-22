@@ -19,21 +19,20 @@ class TitlesService {
     start() {
         this.intervalID = setInterval(() => {
             if (this.currentIndex < this.titles.length) {
-                // console.log(this);
-                if (this.timeElapsed === this.titles[this.currentIndex].start) {
-                    // Event — start showing of title
+                if (
+                    // start showing of title
+                    this.timeElapsed === this.titles[this.currentIndex].start
+                ) {
                     this.currentText = this.titles[this.currentIndex].text;
-                    // console.log(`\n\nTime: ${this.timeElapsed} START ${this.currentText} #${this.currentIndex}`);
-                } else if (this.timeElapsed === this.titles[this.currentIndex].end) {
-                    // Event - end showing of title
-                    // console.log(`\n\nTime: ${this.timeElapsed} END ${this.currentText} #${this.currentIndex}`);
+                } else if (
+                    // end showing of title
+                    this.timeElapsed === this.titles[this.currentIndex].end
+                ) {
                     this.currentText = '';
                     this.currentIndex += 1; // advance to the next title
                 }
                 this.titleNode.textContent = this.currentText;
-                console.log(
-                    `Time: ${this.timeElapsed} currentIndex: ${this.currentIndex} titles array length: ${this.titles.length} currentText: ${this.currentText}`
-                );
+                this.log();
                 this.timeElapsed += INTERVAL_LENGTH;
             } else {
                 console.log('All titles have been run...resetting player');
@@ -45,7 +44,9 @@ class TitlesService {
     }
 
     stop() {
-        console.log('Stopping playing of titles...click start to restart player where you left off');
+        console.log(
+            'Stopping playing of titles...click start to restart player where you left off'
+        );
         clearInterval(this.intervalID);
     }
 
@@ -71,18 +72,36 @@ class TitlesService {
     // A new incoming Title should never overlap with the existing titles
     isOverLapping(title) {
         for (let i = 0; i < this.titles.length; i += 1) {
-            if (title.start > this.titles[i].start && title.start < this.titles[i].end) {
+            if (
+                title.start > this.titles[i].start
+                && title.start < this.titles[i].end
+            ) {
                 return true;
             }
-            if (title.end < this.titles[i].end && title.end > this.titles[i].start) {
+            if (
+                title.end < this.titles[i].end
+                && title.end > this.titles[i].start
+            ) {
                 return true;
             }
             // sharing a start or end point is always going to be overlapping
-            if (title.start === this.titles[i].start || title.end === this.titles[i].end) {
+            if (
+                title.start === this.titles[i].start
+                || title.end === this.titles[i].end
+            ) {
                 return true;
             }
         }
         return false;
+    }
+
+    log() {
+        let statement = '';
+        statement += `time: ${this.timeElapsed}\n`;
+        statement += `text: ${this.currentText}\n`;
+        statement += `index: ${this.currentIndex}\n`;
+        statement += `array len: ${this.titles.length}\n`;
+        console.log(statement);
     }
 }
 

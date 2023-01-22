@@ -39,7 +39,11 @@ function Provider({ children }) {
         handleTitleDelete,
     };
 
-    return <TitlesContext.Provider value={value}>{children}</TitlesContext.Provider>;
+    return (
+        <TitlesContext.Provider value={value}>
+            {children}
+        </TitlesContext.Provider>
+    );
 }
 
 export { Provider };

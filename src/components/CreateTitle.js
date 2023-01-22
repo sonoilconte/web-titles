@@ -40,9 +40,21 @@ function CreateTitle() {
         <div>
             <br /> <br />
             <form onSubmit={handleSubmit}>
-                <input placeholder="Start" onChange={handleStartChange} value={start} />
-                <input placeholder="End" onChange={handleEndChange} value={end} />
-                <input placeholder="Text to display" onChange={handleTextChange} value={text} />
+                <input
+                    placeholder="Start"
+                    onChange={handleStartChange}
+                    value={start}
+                />
+                <input
+                    placeholder="End"
+                    onChange={handleEndChange}
+                    value={end}
+                />
+                <input
+                    placeholder="Text to display"
+                    onChange={handleTextChange}
+                    value={text}
+                />
                 <button>Add</button>
             </form>
         </div>

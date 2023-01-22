@@ -8,7 +8,8 @@
     "extends": ["eslint:recommended", "plugin:react/recommended"],
     "overrides": [],
     "parserOptions": {
-        "ecmaVersion": "latest"
+        "ecmaVersion": "latest",
+        "sourceType": "module"
     },
     "plugins": ["react"],
     "rules": {
@@ -16,11 +17,12 @@
         "linebreak-style": ["error", "unix"],
         "quotes": ["error", "single"],
         "semi": ["error", "always"],
-        "max-len": ["error", 125],
+        "max-len": ["error", 100],
         "prefer-template": "error",
         "no-multiple-empty-lines": ["error", { "max": 1, "maxBOF": 0, "maxEOF": 0 }],
         "operator-linebreak": ["error", "before"],
         "no-multi-spaces": "error",
-        "no-trailing-spaces": "error"
+        "no-trailing-spaces": "error",
+        "react/prop-types": 1
     }
 }

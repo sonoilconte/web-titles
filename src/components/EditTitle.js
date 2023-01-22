@@ -49,9 +49,22 @@ function EditTitle({ title }) {
     return (
         <div>
             <form onSubmit={handleFormSubmit}>
-                <input disabled={!canEdit} onChange={handleStartChange} type="text" value={newStart} />
-                <input disabled={!canEdit} onChange={handleEndChange} type="text" value={newEnd} />
-                <input disabled={!canEdit} onChange={handleTextChange} type="text" value={newText} />
+                <input
+                    disabled={!canEdit}
+                    onChange={handleStartChange}
+                    type="text"
+                    value={newStart}
+                />
+                <input
+                    disabled={!canEdit}
+                    onChange={handleEndChange}
+                    type="text"
+                    value={newEnd} />
+                <input
+                    disabled={!canEdit}
+                    onChange={handleTextChange}
+                    type="text"
+                    value={newText} />
                 {canEdit ? (
                     <>
                         <button name="save">Save</button>
