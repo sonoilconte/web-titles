@@ -7,13 +7,14 @@
 const INTERVAL_LENGTH = 100; // ms
 
 class TitlesService {
-    constructor(titleNode, titles) {
+    constructor(titleNode, titles, onDone) {
         this.titleNode = titleNode;
         this.titles = titles || [];
         this.timeElapsed = 0;
         this.currentIndex = 0;
         this.currentText = '';
         this.intervalID = '';
+        this.onDone = onDone;
     }
 
     start() {
@@ -48,6 +49,7 @@ class TitlesService {
             'Stopping playing of titles...click start to restart player where you left off'
         );
         clearInterval(this.intervalID);
+        this.onDone();
     }
 
     reset() {
@@ -58,6 +60,7 @@ class TitlesService {
         this.currentIndex = 0;
         this.titleNode.textContent = '';
         this.currentText = '';
+        this.onDone();
     }
 
     add(title) {
