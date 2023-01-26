@@ -1,12 +1,13 @@
 import React, { useContext, useEffect, useState, useRef } from 'react';
 import TitlesContext from '../context/titles';
 import TitlesService from '../TitlesService';
+import Viewer from './Viewer';
 
 const Player = () => {
 
     const [isPlaying, setIsPlaying] = useState(false);
 
-    const titleRef = useRef();
+    const viewRef = useRef();
     const startRef = useRef();
     const stopRef = useRef();
     const resetRef = useRef();
@@ -16,7 +17,7 @@ const Player = () => {
     useEffect(() => {
 
         const onDone = () => setIsPlaying(false);
-        const svc = new TitlesService(titleRef.current, titles, onDone);
+        const svc = new TitlesService(viewRef.current, titles, onDone);
 
         const startHandler = () => {
             console.log('Starting TitleService', svc);
@@ -47,8 +48,7 @@ const Player = () => {
 
     return (
         <>
-            <h2>Viewer</h2>
-            <div ref={titleRef} style={{ height: '30px' }}></div>
+            <Viewer ref={viewRef} />
             <button ref={startRef} disabled={isPlaying}>START</button>
             <button ref={stopRef} disabled={!isPlaying}>STOP</button>
             <button ref={resetRef} disabled={isPlaying}>RESET</button>
