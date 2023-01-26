@@ -7,14 +7,14 @@
 const INTERVAL_LENGTH = 100; // ms
 
 class TitlesService {
-    constructor(titleNode, titles, onDone) {
-        this.titleNode = titleNode;
+    constructor(viewNode, titles, onReset) {
+        this.viewNode = viewNode;
         this.titles = titles || [];
         this.timeElapsed = 0;
         this.currentIndex = 0;
         this.currentText = '';
         this.intervalID = '';
-        this.onDone = onDone;
+        this.onReset = onReset;
     }
 
     start() {
@@ -32,12 +32,13 @@ class TitlesService {
                     this.currentText = '';
                     this.currentIndex += 1; // advance to the next title
                 }
-                this.titleNode.textContent = this.currentText;
+                this.viewNode.textContent = this.currentText;
                 this.log();
                 this.timeElapsed += INTERVAL_LENGTH;
             } else {
                 console.log('All titles have been run...resetting player');
                 this.reset();
+                this.onReset();
             }
         }, INTERVAL_LENGTH);
 
@@ -49,7 +50,6 @@ class TitlesService {
             'Stopping playing of titles...click start to restart player where you left off'
         );
         clearInterval(this.intervalID);
-        this.onDone();
     }
 
     reset() {
@@ -58,9 +58,8 @@ class TitlesService {
         console.log('Interval cleared: ', this.intervalID);
         this.timeElapsed = 0;
         this.currentIndex = 0;
-        this.titleNode.textContent = '';
+        this.viewNode.textContent = '';
         this.currentText = '';
-        this.onDone();
     }
 
     add(title) {

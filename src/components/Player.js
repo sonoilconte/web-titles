@@ -5,7 +5,9 @@ import Viewer from './Viewer';
 
 const Player = () => {
 
-    const [isPlaying, setIsPlaying] = useState(false);
+    const [startEnabled, setStartEnabled] = useState(true);
+    const [stopEnabled, setStopEnabled] = useState(false);
+    const [resetEnabled, setResetEnabled] = useState(false);
 
     const viewRef = useRef();
     const startRef = useRef();
@@ -16,23 +18,42 @@ const Player = () => {
 
     useEffect(() => {
 
-        const onDone = () => setIsPlaying(false);
-        const svc = new TitlesService(viewRef.current, titles, onDone);
+        const onStart = () => {
+            setStartEnabled(false);
+            setStopEnabled(true);
+            setResetEnabled(false);
+        };
+
+        const onStop = () => {
+            setStartEnabled(true);
+            setStopEnabled(false);
+            setResetEnabled(true);
+        };
+
+        const onReset = () => {
+            setStartEnabled(true);
+            setStopEnabled(false);
+            setResetEnabled(false);
+        };
+
+        const svc = new TitlesService(viewRef.current, titles, onReset);
 
         const startHandler = () => {
             console.log('Starting TitleService', svc);
             svc.start();
-            setIsPlaying(true);
+            onStart();
         };
 
         const stopHandler = () => {
             console.log('Stopping TitlesService');
             svc.stop();
+            onStop();
         };
 
         const resetHandler = () => {
             console.log('Resetting TitlesService');
             svc.reset();
+            onReset();
         };
 
         startRef.current.addEventListener('click', startHandler);
@@ -49,9 +70,9 @@ const Player = () => {
     return (
         <>
             <Viewer ref={viewRef} />
-            <button ref={startRef} disabled={isPlaying}>START</button>
-            <button ref={stopRef} disabled={!isPlaying}>STOP</button>
-            <button ref={resetRef} disabled={isPlaying}>RESET</button>
+            <button ref={startRef} disabled={!startEnabled}>START</button>
+            <button ref={stopRef} disabled={!stopEnabled}>STOP</button>
+            <button ref={resetRef} disabled={!resetEnabled}>RESET</button>
         </>
     );
 };
