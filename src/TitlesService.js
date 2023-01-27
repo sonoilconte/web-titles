@@ -49,6 +49,7 @@ class TitlesService {
         console.log(
             'Stopping playing of titles...click start to restart player where you left off'
         );
+
         clearInterval(this.intervalID);
     }
 
