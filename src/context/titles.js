@@ -26,9 +26,7 @@ function Provider({ children }) {
 
     const handleTitleDelete = (titleToDelete) => {
         console.log('Delete it', titleToDelete);
-        const updatedTitles = titles.filter((title) => {
-            return title.id !== titleToDelete.id;
-        });
+        const updatedTitles = titles.filter((title) => title.id !== titleToDelete.id);
         setTitles(updatedTitles);
     };
 

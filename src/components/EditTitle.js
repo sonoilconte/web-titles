@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { useState } from 'react';
 import TitlesContext from '../context/titles';
+import TitleForm from './TitleForm';
 
 function EditTitle({ title }) {
     const { handleTitleDelete, handleTitleUpdate } = useContext(TitlesContext);
@@ -47,34 +48,16 @@ function EditTitle({ title }) {
     };
 
     return (
-        <div>
-            <form onSubmit={handleFormSubmit}>
-                <input
-                    disabled={!canEdit}
-                    onChange={handleStartChange}
-                    type="text"
-                    value={newStart}
-                />
-                <input
-                    disabled={!canEdit}
-                    onChange={handleEndChange}
-                    type="text"
-                    value={newEnd} />
-                <input
-                    disabled={!canEdit}
-                    onChange={handleTextChange}
-                    type="text"
-                    value={newText} />
-                {canEdit ? (
-                    <>
-                        <button name="save">Save</button>
-                        <button name="delete">Delete</button>
-                    </>
-                ) : (
-                    <button name="edit">Edit</button>
-                )}
-            </form>
-        </div>
+        <TitleForm
+            canEdit={canEdit}
+            start={newStart}
+            handleStartChange={handleStartChange}
+            end={newEnd}
+            handleEndChange={handleEndChange}
+            text={newText}
+            handleTextChange={handleTextChange}
+            handleFormSubmit={handleFormSubmit}
+        />
     );
 }
 
