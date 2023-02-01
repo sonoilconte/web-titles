@@ -3,12 +3,11 @@ import { useState } from 'react';
 import TitlesContext from '../context/titles';
 import TitleForm from './TitleForm';
 
-function EditTitle({ title }) {
-    const { handleTitleDelete, handleTitleUpdate } = useContext(TitlesContext);
+function EditTitle({ title, setCanEdit }) {
+    const { handleTitleUpdate } = useContext(TitlesContext);
 
     const { start, end, text } = title;
 
-    const [canEdit, setCanEdit] = useState(false);
     const [newStart, setNewStart] = useState(start);
     const [newEnd, setNewEnd] = useState(end);
     const [newText, setNewText] = useState(text);
@@ -24,23 +23,15 @@ function EditTitle({ title }) {
     };
 
     const handleFormSubmit = (event) => {
-        console.log(event);
         event.preventDefault();
-        if (event.nativeEvent.submitter.name === 'save') {
-            const newTitle = {
-                id: title.id,
-                start: newStart,
-                end: newEnd,
-                text: newText,
-            };
-            handleTitleUpdate(newTitle);
-            setCanEdit(false);
-        } else if (event.nativeEvent.submitter.name === 'edit') {
-            console.log('edit');
-            setCanEdit(true);
-        } else if (event.nativeEvent.submitter.name === 'delete') {
-            handleTitleDelete(title);
-        }
+        const newTitle = {
+            id: title.id,
+            start: newStart,
+            end: newEnd,
+            text: newText,
+        };
+        handleTitleUpdate(newTitle);
+        setCanEdit(false);
     };
 
     const handleTextChange = (event) => {
@@ -49,7 +40,7 @@ function EditTitle({ title }) {
 
     return (
         <TitleForm
-            canEdit={canEdit}
+            canEdit={true}
             start={newStart}
             handleStartChange={handleStartChange}
             end={newEnd}

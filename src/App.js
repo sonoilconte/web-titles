@@ -1,19 +1,16 @@
 import React from 'react';
-import EditTitleList from './components/EditTitleList';
+import TitleList from './components/TitleList';
 import CreateTitle from './components/CreateTitle';
 import Player from './components/Player';
 
-const App = () => {
-    return (
-        <div>
-            <h1>Web Titles POC</h1>
-
-            <h2>Editor</h2>
-            <EditTitleList />
-            <CreateTitle />
-            <Player />
-        </div>
-    );
-};
+const App = () => (
+    <div>
+        <h1>Web Titles POC</h1>
+        <h2>Editor</h2>
+        <TitleList />
+        <CreateTitle />
+        <Player />
+    </div>
+);
 
 export default App;

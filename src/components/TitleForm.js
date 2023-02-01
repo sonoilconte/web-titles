@@ -11,34 +11,29 @@ function TitleForm({
     handleFormSubmit,
 }) {
     return (
-        <div>
-            <form onSubmit={handleFormSubmit}>
-                <input
-                    disabled={!canEdit}
-                    onChange={handleStartChange}
-                    type="text"
-                    value={start}
-                />
-                <input
-                    disabled={!canEdit}
-                    onChange={handleEndChange}
-                    type="text"
-                    value={end} />
-                <input
-                    disabled={!canEdit}
-                    onChange={handleTextChange}
-                    type="text"
-                    value={text} />
-                {canEdit ? (
-                    <>
-                        <button name="save">Save</button>
-                        <button name="delete">Delete</button>
-                    </>
-                ) : (
-                    <button name="edit">Edit</button>
-                )}
-            </form>
-        </div>
+        <form style={{ display: 'inline-block' }} onSubmit={handleFormSubmit}>
+            <input
+                disabled={!canEdit}
+                onChange={handleStartChange}
+                type="text"
+                value={start}
+            />
+            <input
+                disabled={!canEdit}
+                onChange={handleEndChange}
+                type="text"
+                value={end} />
+            <input
+                disabled={!canEdit}
+                onChange={handleTextChange}
+                type="text"
+                value={text} />
+            {canEdit && (
+                <>
+                    <button>Save</button>
+                </>
+            )}
+        </form>
     );
 }
 
