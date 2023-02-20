@@ -5,7 +5,7 @@ import Player from './components/Player';
 
 const App = () => (
     <div>
-        <h1>Web Titles POC</h1>
+        <h1>Web Titles</h1>
         <h2>Editor</h2>
         <TitleList />
         <CreateTitle />

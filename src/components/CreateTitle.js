@@ -1,5 +1,10 @@
 import React, { useState, useContext } from 'react';
 import TitlesContext from '../context/titles';
+import {
+    START_PH,
+    END_PH,
+    TEXT_PH,
+} from '../constants';
 
 function CreateTitle() {
     const { createTitle } = useContext(TitlesContext);
@@ -41,19 +46,19 @@ function CreateTitle() {
             <br /> <br />
             <form onSubmit={handleSubmit}>
                 <input
-                    placeholder="Start"
                     onChange={handleStartChange}
                     value={start}
+                    placeholder={START_PH}
                 />
                 <input
-                    placeholder="End"
                     onChange={handleEndChange}
                     value={end}
+                    placeholder={END_PH}
                 />
                 <input
-                    placeholder="Text to display"
                     onChange={handleTextChange}
                     value={text}
+                    placeholder={TEXT_PH}
                 />
                 <button>Add</button>
             </form>

@@ -1,6 +1,6 @@
 import React, { forwardRef } from 'react';
 
-// eslint-disable-next-line react/display-name
+// eslint-disable-next-line react/display-name, arrow-body-style
 const Viewer = forwardRef((props, ref) => {
     return (
         <>

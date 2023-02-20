@@ -1,4 +1,9 @@
 import React from 'react';
+import {
+    START_PH,
+    END_PH,
+    TEXT_PH,
+} from '../constants';
 
 function TitleForm({
     canEdit,
@@ -17,17 +22,22 @@ function TitleForm({
                 onChange={handleStartChange}
                 type="text"
                 value={start}
+                placeholder={START_PH}
             />
             <input
                 disabled={!canEdit}
                 onChange={handleEndChange}
                 type="text"
-                value={end} />
+                value={end}
+                placeholder={END_PH}
+            />
             <input
                 disabled={!canEdit}
                 onChange={handleTextChange}
                 type="text"
-                value={text} />
+                value={text}
+                placeholder={TEXT_PH}
+            />
             {canEdit && (
                 <>
                     <button>Save</button>
