@@ -6,7 +6,7 @@
     "scripts": {
         "start": "webpack-dev-server .",
         "build": "Webpack .",
-        "test": "test",
+        "test": "node ./node_modules/jest/bin/jest.js",
         "prettier": "prettier --config .prettierrc '*.js' --write",
         "lint": "eslint . --ext .js"
     },

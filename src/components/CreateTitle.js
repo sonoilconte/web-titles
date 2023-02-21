@@ -1,5 +1,7 @@
 import React, { useState, useContext } from 'react';
 import TitlesContext from '../context/titles';
+import parseTimeString from '../helpers/parseTimeString';
+
 import {
     START_PH,
     END_PH,
@@ -28,13 +30,13 @@ function CreateTitle() {
     };
 
     const handleStartChange = (event) => {
-        const startInt = parseInt(event.target.value) || '';
-        setStart(startInt);
+        const startTime = parseTimeString(event.target.value);
+        setStart(startTime);
     };
 
     const handleEndChange = (event) => {
-        const endInt = parseInt(event.target.value) || '';
-        setEnd(endInt);
+        const endTime = parseTimeString(event.target.value);
+        setEnd(endTime);
     };
 
     const handleTextChange = (event) => {

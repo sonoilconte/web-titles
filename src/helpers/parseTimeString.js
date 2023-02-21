@@ -1,18 +1,24 @@
 /**
  * @returns string
+ * Could refactor so it could handle any string pasted in as well
+ * Here I'm assuming only one character added at a time, at end of string
  */
 
 export default (str) => {
-    if (str === '0') {
-        return '0';
-    }
-
-    if (str === '0.') {
-        return '0.';
+    if (
+        str === '0'
+        || str === '0.'
+        || str === '0.0'
+    ) {
+        return str;
     }
 
     if (str === '.') {
         return '0.';
+    }
+
+    if (str === '00') {
+        return '0';
     }
 
     const matchResult = str.match(/\./g);

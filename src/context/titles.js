@@ -19,6 +19,7 @@ function Provider({ children }) {
 
     const createTitle = (newTitle) => {
         newTitle = convertToMs(newTitle);
+        console.log('Adding title', newTitle);
         let updatedTitles = [...titles];
         updatedTitles.push(newTitle);
         updatedTitles = updatedTitles.sort((a, b) => a.start - b.start);
