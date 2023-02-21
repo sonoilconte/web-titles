@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { useState } from 'react';
 import TitlesContext from '../context/titles';
 import TitleForm from './TitleForm';
+import parseTimeString from '../helpers/parseTimeString';
 
 function EditTitle({ title, setCanEdit }) {
     const { handleTitleUpdate } = useContext(TitlesContext);
@@ -13,13 +14,13 @@ function EditTitle({ title, setCanEdit }) {
     const [newText, setNewText] = useState(text);
 
     const handleStartChange = (event) => {
-        const startInt = parseInt(event.target.value) || '';
-        setNewStart(startInt);
+        const startTime = parseTimeString(event.target.value);
+        setNewStart(startTime);
     };
 
     const handleEndChange = (event) => {
-        const endInt = parseInt(event.target.value) || '';
-        setNewEnd(endInt);
+        const endTime = parseTimeString(event.target.value);
+        setNewEnd(endTime);
     };
 
     const handleFormSubmit = (event) => {
