@@ -17,45 +17,51 @@ const Player = () => {
 
     const { titles } = useContext(TitlesContext);
 
+    const onStart = () => {
+        setStartEnabled(false);
+        setStopEnabled(true);
+        setResetEnabled(false);
+    };
+
+    const onStop = () => {
+        setStartEnabled(true);
+        setStopEnabled(false);
+        setResetEnabled(true);
+    };
+
+    const onReset = () => {
+        setStartEnabled(true);
+        setStopEnabled(false);
+        setResetEnabled(false);
+    };
+
+    const [svc, setSvc] = useState(null);
+
+    console.log('sanity check svc—', svc);
+
+    const startHandler = () => {
+        console.log('Starting TitleService', svc);
+        svc.start();
+        onStart();
+    };
+
+    const stopHandler = () => {
+        console.log('Stopping TitlesService');
+        svc.stop();
+        onStop();
+    };
+
+    const resetHandler = () => {
+        console.log('Resetting TitlesService');
+        svc.reset();
+        onReset();
+    };
+
     useEffect(() => {
-
-        const onStart = () => {
-            setStartEnabled(false);
-            setStopEnabled(true);
-            setResetEnabled(false);
-        };
-
-        const onStop = () => {
-            setStartEnabled(true);
-            setStopEnabled(false);
-            setResetEnabled(true);
-        };
-
-        const onReset = () => {
-            setStartEnabled(true);
-            setStopEnabled(false);
-            setResetEnabled(false);
-        };
-
-        const svc = new TitlesService(viewRef.current, titles, onReset);
-
-        const startHandler = () => {
-            console.log('Starting TitleService', svc);
-            svc.start();
-            onStart();
-        };
-
-        const stopHandler = () => {
-            console.log('Stopping TitlesService');
-            svc.stop();
-            onStop();
-        };
-
-        const resetHandler = () => {
-            console.log('Resetting TitlesService');
-            svc.reset();
-            onReset();
-        };
+        console.log('useEffect');
+        if (!svc) {
+            setSvc(new TitlesService(viewRef.current, titles, onReset));
+        }
 
         startRef.current.addEventListener('click', startHandler);
         stopRef.current.addEventListener('click', stopHandler);
@@ -66,11 +72,15 @@ const Player = () => {
             stopRef.current.removeEventListener('click', stopHandler);
             resetRef.current.removeEventListener('click', resetHandler);
         };
-    }, [titles]);
+    }, [svc]);
 
     return (
         <>
-            <VideoPlayer />
+            <VideoPlayer
+                startHandler={startHandler}
+                stopHandler={stopHandler}
+                resetHandler={resetHandler}
+            />
             <Viewer ref={viewRef} />
             <button ref={startRef} disabled={!startEnabled}>START</button>
             <button ref={stopRef} disabled={!stopEnabled}>STOP</button>

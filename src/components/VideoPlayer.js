@@ -8,22 +8,30 @@ const opts = {
     },
 };
 
-function VideoPlayer() {
+function VideoPlayer({
+    startHandler,
+    stopHandler,
+    resetHandler,
+}) {
 
     const onReady = (event) => {
         console.log('player ready', event);
     };
 
     const onPlay = (event) => {
+        console.log('from vid player', new Date().getTime());
         console.log('playing', event);
+        startHandler();
     };
 
     const onPause = (event) => {
         console.log('pausing', event);
+        stopHandler();
     };
 
     const onEnd = (event) => {
         console.log('end event', event);
+        resetHandler();
     };
 
     return (

@@ -41,7 +41,7 @@ class TitlesService {
                 this.onReset();
             }
         }, INTERVAL_LENGTH);
-
+        console.log('from svc', new Date().getTime());
         console.log('Started title service with intervalID', this.intervalID);
     }
 
