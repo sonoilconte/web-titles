@@ -1,4 +1,3 @@
-import { parse } from 'path';
 import parseTimeString from '../parseTimeString';
 
 describe('Handling time strings that may be entered into inputs', () => {

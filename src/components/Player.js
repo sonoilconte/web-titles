@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState, useRef } from 'react';
 import TitlesContext from '../context/titles';
 import TitlesService from '../TitlesService';
+import VideoPlayer from './VideoPlayer';
 import Viewer from './Viewer';
 
 const Player = () => {
@@ -69,6 +70,7 @@ const Player = () => {
 
     return (
         <>
+            <VideoPlayer />
             <Viewer ref={viewRef} />
             <button ref={startRef} disabled={!startEnabled}>START</button>
             <button ref={stopRef} disabled={!stopEnabled}>STOP</button>
